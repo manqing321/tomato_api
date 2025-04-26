@@ -1,9 +1,9 @@
 CXX = g++
 CC  = gcc
-cpp_src = $(wildcard *.cpp ./src/*.cpp)
-c_src = $(wildcard *.c ./src/*.c)
-cpp_objs = $(patsubst %.cpp, %.o, $(cpp_src))
-c_objs =  $(patsubst %.c, %.o, $(c_src))
+cpp_src = $(shell find . -name "*.cpp")
+c_src = $(shell find . -name "*.c")
+cpp_objs = $(cpp_src:.cpp=.o)
+c_objs =  $(c_src:.c=.o)
 objs = $(cpp_objs) $(c_objs)
 all: app
 app:$(objs)
@@ -17,4 +17,4 @@ $(cpp_objs): %.o: %.cpp
 
 .PHONY : clean
 clean:
-	rm -f *.o app ./src/*.o
+	rm -f $(objs) app
